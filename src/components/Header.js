@@ -1,51 +1,82 @@
 import React from 'react'
 import styled from 'styled-components'
 import { auth, provider } from '../firebase'
+import { useDispatch, useSelector } from 'react-redux/es/exports' 
+// import { useHistroy } from "react-router-dom"
+import { selectUserName, selectUserPhoto, setUserLoginDetails} from '../features/user/userSlice'
+
 
 const Header = () => {
 
+    const dispatch = useDispatch()
+    // const histroy = useHistroy()
+    const userName = useSelector(selectUserName) //useSelectore allow us to retrive data from store
+    const userPhoto = useSelector(selectUserPhoto)
+
+
+
     const handleAuth = () => { //google auth firbase handler
         auth.signInWithPopup(provider).then((result) => {
-            console.log("google auth result is " ,result)
+            // console.log("google auth result is " ,result)
+            setUser(result.user) //this allow us to add a new user
         })
             .catch((error) => {
                 alert(error.message);
             })
     }
 
+
+    const setUser = (user) =>{
+        dispatch(
+            setUserLoginDetails({
+            name: user.displayName,
+            email: user.email,
+            photo: user.photoURL
+        }))
+    }
     return (
         <Nav>
             <Logo>
                 <img src="/images/logo.svg" alt='logo' />
             </Logo>
+
+            {
+                !userName ? 
+                <Login onClick={handleAuth} >Login</Login>
+                :
+                <>
             <NavMenu>
                 <a href='/home'>
                     <img src="/images/home-icon.svg" alt="HOME" />
                     <span>HOME</span>
                 </a>
-                <a href='/home'>
+                <a >
                     <img src="/images/search-icon.svg" alt="SEARCH" />
                     <span>SEARCH</span>
                 </a>
-                <a href='/home'>
+                <a >
                     <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
                     <span>WATCHLIST</span>
                 </a>
-                <a href='/home'>
+                <a >
                     <img src="/images/original-icon.svg" alt="ORIGINALS" />
                     <span>ORIGINALS</span>
                 </a>
-                <a href='/home'>
+                <a >
                     <img src="/images/movie-icon.svg" alt="MOVIES" />
                     <span>MOVIES</span>
                 </a>
-                <a href='/home'>
+                <a >
                     <img src="/images/series-icon.svg" alt="SERIES" />
                     <span>SERIES</span>
                 </a>
 
             </NavMenu>
-            <Login onClick={handleAuth}>Login</Login>
+
+            <UserImg src={userPhoto} alt={userName} />
+            </>
+}
+            {/* // <Login onClick={handleAuth}>Login</Login> */}
         </Nav>
     )
 }
@@ -162,5 +193,11 @@ transition:all 0.2s ease 0s ;
     color:#000 ;
     border-color:transparent ;
 }
+`;
+
+
+const UserImg = styled.img`
+height:1000%;
+
 `
 export default Header
