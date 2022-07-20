@@ -4,14 +4,15 @@ import { auth, provider } from '../firebase'
 
 const Header = () => {
 
-    // const handleAuth = () => {
-    //     auth.signInWithPopup(provider).then((result) => {
-    //         console.log(result)
-    //     })
-    //         .catch((error) => {
-    //             alert(error.message);
-    //         })
-    // }
+    const handleAuth = () => { //google auth firbase handler
+        auth.signInWithPopup(provider).then((result) => {
+            console.log("google auth result is " ,result)
+        })
+            .catch((error) => {
+                alert(error.message);
+            })
+    }
+
     return (
         <Nav>
             <Logo>
@@ -44,7 +45,7 @@ const Header = () => {
                 </a>
 
             </NavMenu>
-            <Login >Login</Login>
+            <Login onClick={handleAuth}>Login</Login>
         </Nav>
     )
 }
