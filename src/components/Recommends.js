@@ -1,12 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
+import { link } from 'react-router-dom'
+import {useSelector } from 'react-redux'
+import { selectRecommend } from '../features/movie/movieSlice'
 
-function Recomment() {
-  return (
+function Recommends() {
+    const movies = useSelector(selectRecommend)  // selectRecommend comes from firebase and send them to our store
+  
+  
+    return (
     <Container>
     <h4>Recommended fo you</h4>
     <Content>
-        <Wrap>
+        {/* <Wrap>
             <Link t0="/" >
                 <img src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/49B92C046117E89BC9243A68EE277A3B30D551D4599F23C10BF0B8C1E90AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg' alt='' />
             </Link>
@@ -28,7 +34,17 @@ function Recomment() {
             <Link t0="/" >
                 <img src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/49B92C046117E89BC9243A68EE277A3B30D551D4599F23C10BF0B8C1E90AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg' alt='' />
             </Link>
-        </Wrap>
+        </Wrap> */}
+        {
+            movies && movies.map((movie,key)=> (
+                <Wrap key={key}> 
+                    { movie.id}
+                    <Link to={`/detail/` + movie.id}>
+                        <img src={movie.cardImg} alt={movie.title} />
+                    </Link>
+                </Wrap>
+            ))
+        }
 
     </Content>
     </Container>
@@ -83,4 +99,4 @@ img{
 
  const Link = styled.div`
  `
-export default Recomment
+export default Recommends
