@@ -1,10 +1,22 @@
-# Disney+ Clone
+# Disney+ Clone 🔥
 
-It is a Disney+ clone ,built using react. React hooks useEffect,useState,redux-toolkit are used in the project. The data is saved in firebase is Hard Coded. To check the deployed version visit link below.
+** Introduction **
+A video streaming web application where people can come and watch movies. This web application is perticularlly for the animated movies. The design is inspired by the Disney+.
 
-## https://disneypplus-clone.web.app/
+** Key Features **
+- Authentication
+- Responsive
+- Hosted
+- Elegent Design
 
-### Login Functionality is also include in this project
+** Tech Stack **
+- React-Js
+- Redux - Toolkit
+- Firebase (firestore, hosting)
+- Styled components
+
+[Live Demo](https://disneypplus-clone.web.app/)
+
 
 
 
